@@ -10,7 +10,8 @@ from relationship_app.models import Author, Book, Library, Librarian
 author_name = input("Enter author name: ")
 try:
     author = Author.objects.get(name=author_name)
-    books_by_author = author.books.all()
+    books = author.books.all()
+    books_by_author = Book.objects.filter(author=author) 
     print(f"Books by {author.name}: {[book.title for book in books_by_author]}")
 except Author.DoesNotExist:
     print(f"No author found with the name {author_name}")
