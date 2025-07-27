@@ -26,5 +26,5 @@ except Library.DoesNotExist:
     print(f"No library found with the name {library_name}")
 
 # get librarian for a library
-librarian = library.librarian
+librarian = Librarian.objects.get(library='')
 print(f"Librarian for {library.name}: {librarian.name}")
