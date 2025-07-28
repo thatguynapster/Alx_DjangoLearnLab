@@ -5,9 +5,9 @@ from django.urls import path
 
 urlpatterns = [
     path('books/', list_books, name='list_books'),
-    path('books/add/', add_book, name='add_book'),
-    path('books/edit/<int:book_id>/', edit_book, name='edit_book'),
-    path('books/delete/<int:book_id>/', delete_book, name='delete_book'),
+    path('add_book/', add_book, name='add_book'),        
+    path('edit_book/<int:book_id>/', edit_book, name='edit_book'),  
+    path('delete_book/<int:book_id>/', delete_book, name='delete_book'),
     
     path('library/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),
     
