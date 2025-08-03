@@ -16,3 +16,11 @@ Groups:
 -   Admins: Full access
 
 Permissions are enforced using @permission_required decorator in views.
+
+## Security Measures Implemented
+
+-   CSRF protection in all forms
+-   XSS and clickjacking protections
+-   Secure cookies (HTTPS only)
+-   CSP enforced for asset loading
+-   ORM usage to prevent SQL injection
