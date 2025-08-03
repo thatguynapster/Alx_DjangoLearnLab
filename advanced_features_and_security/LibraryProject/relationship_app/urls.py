@@ -10,7 +10,7 @@ urlpatterns = [
     path('delete_book/<int:book_id>/', delete_book, name='delete_book'),
     
     path('library/<int:pk>/', LibraryDetailView.as_view(), name='library_detail'),
-    
+ 
     # Auth URLs
     path('login/', auth_views.LoginView.as_view(template_name='relationship_app/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='relationship_app/logout.html'), name='logout'),

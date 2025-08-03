@@ -1,0 +1,15 @@
+<h2>Example Form</h2>
+
+{% if success %}
+<p style="color: green">Form submitted successfully!</p>
+<ul>
+	<li><strong>Name:</strong> {{ submitted_data.name }}</li>
+	<li><strong>Email:</strong> {{ submitted_data.email }}</li>
+	<li><strong>Message:</strong> {{ submitted_data.message }}</li>
+</ul>
+{% endif %}
+
+<form method="post">
+	{% csrf_token %} {{ form.as_p }}
+	<button type="submit">Submit</button>
+</form>
