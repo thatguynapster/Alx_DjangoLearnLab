@@ -147,3 +147,6 @@ SECURE_SSL_REDIRECT = True  # Ensures all HTTP requests are redirected to HTTPS
 SECURE_HSTS_SECONDS = 31536000  # One year in seconds
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Include subdomains in the HSTS policy
 SECURE_HSTS_PRELOAD = True  # Allow this domain to be preloaded into browsers' HSTS lists
+
+# Trust the X-Forwarded-Proto header set by a proxy
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
