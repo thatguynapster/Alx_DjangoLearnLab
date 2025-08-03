@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Book List</title>
+	</head>
+	<body>
+		<h1>Book List</h1>
+
+		{% if books %}
+		<ul>
+			{% for book in books %}
+			<li>
+				<strong>{{ book.title }}</strong> by {{ book.author }} ({{
+				book.publication_date }}) -
+				<a href="{% url 'edit_book' book.id %}">Edit</a> -
+				<a href="{% url 'delete_book' book.id %}">Delete</a>
+			</li>
+			{% endfor %}
+		</ul>
+		{% else %}
+		<p>No books found.</p>
+		{% endif %}
+
+		<a href="{% url 'add_book' %}">Add a new book</a>
+	</body>
+</html>
