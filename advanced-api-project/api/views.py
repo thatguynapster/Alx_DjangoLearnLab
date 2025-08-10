@@ -47,7 +47,7 @@ class BookCreateView(generics.CreateAPIView):
 # Update existing book (Authenticated users only)
 class BookUpdateView(generics.UpdateAPIView):
     """
-    PUT /books/<id>/update/
+    PUT /books/update/<id>
     Updates an existing book. Only for authenticated users.
     """
     queryset = Book.objects.all()
@@ -64,7 +64,7 @@ class BookUpdateView(generics.UpdateAPIView):
 # Delete a book (Authenticated users only)
 class BookDeleteView(generics.DestroyAPIView):
     """
-    DELETE /books/<id>/delete/
+    DELETE /books/delete/<id>
     Deletes a book. Only for authenticated users.
     """
     queryset = Book.objects.all()
