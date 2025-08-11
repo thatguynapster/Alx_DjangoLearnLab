@@ -86,7 +86,8 @@ class BookAPITestCase(APITestCase):
         }
 
         # Force authenticate the client as the test user
-        self.client.force_authenticate(user=self.user)
+        
+        self.client.login(username="testuser", password="password123")
         response = self.client.post(url, payload, format='json')
         # Undo authentication for subsequent tests (good practice)
         self.client.force_authenticate(user=None)
@@ -117,7 +118,7 @@ class BookAPITestCase(APITestCase):
             "publication_year": 2001
         }
 
-        self.client.force_authenticate(user=self.user)
+        self.client.login(username="testuser", password="password123")
         response = self.client.put(url, payload, format='json')
         self.client.force_authenticate(user=None)
 
@@ -137,7 +138,7 @@ class BookAPITestCase(APITestCase):
     def test_delete_book_authenticated(self):
         """Authenticated users can delete books (use force_authenticate)."""
         url = reverse(self.delete_name, kwargs={'pk': self.book2.pk})
-        self.client.force_authenticate(user=self.user)
+        self.client.login(username="testuser", password="password123")
         response = self.client.delete(url)
         self.client.force_authenticate(user=None)
 
