@@ -8,9 +8,12 @@ class BookSerializer(serializers.ModelSerializer):
     Serializes all fields in the Book model.
     Includes validation to ensure publication_year is not in the future.
     """
+    
+    author_name = serializers.ReadOnlyField(source='author.name')
+    
     class Meta:
         model = Book
-        fields = ['id', 'title', 'publication_year', 'author']
+        fields = ['id', 'title', 'publication_year', 'author','author_name']
         
     def validate_publication_year(self, value):
         """
