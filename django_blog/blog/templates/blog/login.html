@@ -25,7 +25,11 @@
 
 		<div class="content">
 			{% block content %}
-			<!-- Page-specific content goes here -->
+			<h2>Login</h2>
+			<form method="post">
+				{% csrf_token %} {{ form.as_p }}
+				<button type="submit">Login</button>
+			</form>
 			{% endblock %}
 		</div>
 
