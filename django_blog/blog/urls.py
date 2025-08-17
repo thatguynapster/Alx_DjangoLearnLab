@@ -22,12 +22,12 @@ urlpatterns = [
         name="comment_add",
     ),
     path(
-        "comments/<int:pk>/update/",
+        "comment/<int:pk>/update/",
         views.CommentUpdateView.as_view(),
         name="comment_edit",
     ),
     path(
-        "comments/<int:pk>/delete/",
+        "comment/<int:pk>/delete/",
         views.CommentDeleteView.as_view(),
         name="comment_delete",
     ),
