@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
-from .forms import RegisterForm
+from .forms import RegisterForm, UserUpdateForm, ProfileForm
 
 
 def home(request):
@@ -35,4 +35,16 @@ class CustomLogoutView(LogoutView):
 # Profile View
 @login_required
 def profile(request):
-    return render(request, "blog/profile.html")
+    if request.method == "POST":
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            return redirect("profile")
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileForm(instance=request.user.profile)
+
+    return render(request, "blog/profile.html", {"u_form": u_form, "p_form": p_form})
