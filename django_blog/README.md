@@ -30,15 +30,25 @@ This project implements a basic authentication system for a Django blog applicat
     -   Only authenticated users can access profile pages.
 
 -   **Blog**
+
 -   **_List View:_** Displays all blog posts with title and content snippet.
 -   **_Detail View:_** Shows full post content.
 -   **_Create View:_** Authenticated users can create posts.
 -   **_Update View:_** Only the post's author can edit.
 -   **_Delete View:_** Only the post's author can delete.
+-   Users can **add comments** to blog posts.
+-   Users can **edit their comments**.
+-   Users can **delete their comments**.
+-   Comments are displayed on the corresponding post's detail page.
+
 -   **Permissions:**
     -   Anyone can view posts.
     -   Only authenticated users can create posts.
     -   Only authors can update/delete their own posts.
+    -   By default, any logged-in user can add a comment.
+    -   Editing and deleting a comment is restricted to:
+    -   The **author of the comment**, or
+    -   Users with elevated permissions (e.g., admin/superuser).
 
 ---
 

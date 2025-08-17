@@ -15,7 +15,8 @@ from django.urls import reverse_lazy, reverse
 from django.shortcuts import render, redirect
 from .forms import PostForm, CommentForm
 from django.contrib.auth import login
-from .models import Post, Comment
+from .models import Post, Comment, Tag
+from django.db.models import Q
 
 
 def home(request):
@@ -193,3 +194,27 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         comment = self.get_object()
         return self.request.user == comment.author
+
+
+def search_posts(request):
+    query = request.GET.get("q", "")
+    results = Post.objects.none()
+
+    if query:
+        results = Post.objects.filter(
+            Q(title__icontains=query)
+            | Q(content__icontains=query)
+            | Q(tags__name__icontains=query)
+        ).distinct()
+
+    return render(
+        request, "blog/search_results.html", {"results": results, "query": query}
+    )
+
+
+def posts_by_tag(request, tag_name):
+    tag = get_object_or_404(Tag, name=tag_name)
+    posts = tag.posts.all()  # Using the related_name in the Post model
+    return render(
+        request, "blog/posts_by_tag.html", {"posts": posts, "tag_name": tag.name}
+    )
