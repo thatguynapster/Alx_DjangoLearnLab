@@ -147,19 +147,19 @@ class CommentCreateView(CreateView):
     template_name = "blog/comment_form.html"
 
     def form_valid(self, form):
-        post = get_object_or_404(Post, pk=self.kwargs["post_id"])
+        post = get_object_or_404(Post, pk=self.kwargs["pk"])
         form.instance.author = self.request.user
         form.instance.post = post
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["post_id"] = self.kwargs["post_id"]
+        context["post"] = self.kwargs["pk"]
         context["title"] = "Add Comment"
         return context
 
     def get_success_url(self):
-        return reverse_lazy("blog:post_detail", kwargs={"pk": self.kwargs["post_id"]})
+        return reverse_lazy("blog:post_detail", kwargs={"pk": self.kwargs["pk"]})
 
 
 @method_decorator(login_required, name="dispatch")
