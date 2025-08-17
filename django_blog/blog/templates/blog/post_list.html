@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %} {% block content %}
+<h2>All Blog Posts</h2>
+
+{% for post in object_list %}
+<div class="post-preview">
+	<h3><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h3>
+	<p>{{ post.content|truncatewords:20 }}</p>
+	<p>
+		<small>
+			By {{ post.author.username }} on {{ post.created_at|date:"M d, Y" }}
+		</small>
+	</p>
+</div>
+{% empty %}
+<p>No posts available.</p>
+{% endfor %} {% if user.is_authenticated %}
+<a
+	href="{% url 'post_create' %}"
+	class="btn"
+	>Create New Post</a
+>
+{% endif %} {% endblock %}
