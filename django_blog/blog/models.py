@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
 from django.urls import reverse
 from django.db import models
 
@@ -9,7 +10,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    tags = models.ManyToManyField("Tag", related_name="posts", blank=True)
+    tags = TaggableManager()
 
     def __str__(self):
         return self.title
