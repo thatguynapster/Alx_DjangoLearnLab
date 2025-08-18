@@ -30,7 +30,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)  # Auto-login after registration
-            return redirect("profile")
+            return redirect("blog:profile")
     else:
         form = RegisterForm()
     return render(request, "blog/register.html", {"form": form})
@@ -56,7 +56,7 @@ def profile(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            return redirect("profile")
+            return redirect("blog:profile")
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileForm(instance=request.user.profile)

@@ -18,8 +18,12 @@
 				<ul>
 					<li><a href="{% url 'blog:home' %}">Home</a></li>
 					<li><a href="{% url 'blog:posts' %}">Blog Posts</a></li>
+					{% if user.is_authenticated != True %}
 					<li><a href="{% url 'blog:login' %}">Login</a></li>
 					<li><a href="{% url 'blog:register' %}">Register</a></li>
+					{% endif %} {% if user.is_authenticated %}
+					<li><a href="{% url 'blog:logout' %}">Logout</a></li>
+					{% endif %}
 				</ul>
 			</nav>
 		</header>
