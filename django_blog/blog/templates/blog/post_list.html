@@ -7,7 +7,7 @@
 	<p>{{ post.content|truncatewords:20 }}</p>
 	<p>
 		<small>
-			By {{ post.author.username }} on {{ post.created_at|date:"M d, Y" }}
+			By {{ post.author.username }} on {{ post.published_date|date:"M d, Y" }}
 		</small>
 	</p>
 </div>
