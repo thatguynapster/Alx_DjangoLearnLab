@@ -212,7 +212,7 @@ def search_posts(request):
     )
 
 
-def posts_by_tag(request, tag_name):
+def PostByTagListView(request, tag_name):
     tag = get_object_or_404(Tag, name=tag_name)
     posts = tag.posts.all()  # Using the related_name in the Post model
     return render(
