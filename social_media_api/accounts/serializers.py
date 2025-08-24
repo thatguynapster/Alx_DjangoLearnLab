@@ -7,9 +7,23 @@ User = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
+
+    following = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    followers = serializers.PrimaryKeyRelatedField(
+        source="followers", many=True, read_only=True
+    )
+
     class Meta:
         model = User
-        fields = ["id", "username", "email", "bio", "profile_picture", "followers"]
+        fields = [
+            "id",
+            "username",
+            "email",
+            "bio",
+            "profile_picture",
+            "followers",
+            "following",
+        ]
 
 
 class RegisterSerializer(serializers.ModelSerializer):
