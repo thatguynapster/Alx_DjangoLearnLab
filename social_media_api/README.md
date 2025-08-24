@@ -113,3 +113,155 @@ Additional fields:
 `profile_picture` – Uploadable image for profile picture.
 
 `followers` – A Many-to-Many relationship allowing users to follow each other (symmetrical=False).
+
+## Endpoints
+
+### Posts
+
+#### List Posts
+
+-   **URL:** `/api/posts/`
+-   **Method:** GET
+-   **Description:** Retrieve a paginated list of posts.
+-   **Parameters (Optional):**
+    -   `search`: Search posts by title or content.
+-   **Response Example:**
+
+```json
+{
+	"count": 1,
+	"next": null,
+	"previous": null,
+	"results": [
+		{
+			"id": 1,
+			"author": "username",
+			"title": "My First Post",
+			"content": "This is the content of the first post.",
+			"created_at": "2025-08-24T10:00:00Z",
+			"updated_at": "2025-08-24T10:00:00Z"
+		}
+	]
+}
+```
+
+#### Create Post
+
+-   **URL:** `/api/posts/`
+-   **Method:** POST
+-   **Description:** Create a new post.
+-   **Request Example:**
+
+```json
+{
+	"title": "New Post Title",
+	"content": "This is the content of the new post."
+}
+```
+
+-   **Response Example:**
+
+```json
+{
+	"id": 2,
+	"author": "username",
+	"title": "New Post Title",
+	"content": "This is the content of the new post.",
+	"created_at": "2025-08-24T11:00:00Z",
+	"updated_at": "2025-08-24T11:00:00Z"
+}
+```
+
+#### Retrieve Post
+
+-   **URL:** `/api/posts/{id}/`
+-   **Method:** GET
+-   **Description:** Retrieve details of a specific post.
+
+#### Update Post
+
+-   **URL:** `/api/posts/{id}/`
+-   **Method:** PUT/PATCH
+-   **Description:** Update the post (only if the user is the author).
+
+#### Delete Post
+
+-   **URL:** `/api/posts/{id}/`
+-   **Method:** DELETE
+-   **Description:** Delete the post (only if the user is the author).
+
+---
+
+### Comments
+
+#### List Comments
+
+-   **URL:** `/api/comments/`
+-   **Method:** GET
+-   **Description:** Retrieve a paginated list of comments.
+-   **Response Example:**
+
+```json
+{
+	"count": 1,
+	"next": null,
+	"previous": null,
+	"results": [
+		{
+			"id": 1,
+			"post": 1,
+			"author": "username",
+			"content": "This is a comment.",
+			"created_at": "2025-08-24T10:30:00Z",
+			"updated_at": "2025-08-24T10:30:00Z"
+		}
+	]
+}
+```
+
+#### Create Comment
+
+-   **URL:** `/api/comments/`
+-   **Method:** POST
+-   **Description:** Add a new comment to a post.
+-   **Request Example:**
+
+```json
+{
+	"post": 1,
+	"content": "This is a comment."
+}
+```
+
+-   **Response Example:**
+
+```json
+{
+	"id": 2,
+	"post": 1,
+	"author": "username",
+	"content": "This is a comment.",
+	"created_at": "2025-08-24T11:30:00Z",
+	"updated_at": "2025-08-24T11:30:00Z"
+}
+```
+
+#### Retrieve Comment
+
+-   **URL:** `/api/comments/{id}/`
+-   **Method:** GET
+-   **Description:** Retrieve details of a specific comment.
+
+#### Update Comment
+
+-   **URL:** `/api/comments/{id}/`
+-   **Method:** PUT/PATCH
+-   **Description:** Update the comment (only if the user is the author).
+
+#### Delete Comment
+
+-   **URL:** `/api/comments/{id}/`
+-   **Method:** DELETE
+-   **Description:** Delete the comment (only if the user is the author).
+
+---

@@ -32,7 +32,7 @@ class LoginView(APIView):
         serializer = LoginSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
-        token, created = Token.objects.get_or_create(user=User)
+        token, created = Token.objects.get_or_create(user=user)
 
         return Response({"token": token.key, "message": "Login successful"})
 

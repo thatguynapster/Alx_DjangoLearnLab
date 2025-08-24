@@ -21,7 +21,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by("-created_at")
     serializer_class = PostSerializer
-    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+    # permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ["title", "content"]
     ordering_fields = ["created_at", "updated_at"]
@@ -50,10 +50,10 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def perform_update(self, serializer):
         if serializer.instance.author != self.request.user:
-            raise permissions.PermissionDenied("You can only edit your own comments.")
+            raise permissions.PermissionDenied("You cannot edit this comment.")
         serializer.save()
 
     def perform_destroy(self, instance):
         if instance.author != self.request.user:
-            raise permissions.PermissionDenied("You can only delete your own comments.")
+            raise permissions.PermissionDenied("You cannot delete comments.")
         instance.delete()
