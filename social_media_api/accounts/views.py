@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
 from .models import CustomUser
 
