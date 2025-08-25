@@ -63,13 +63,13 @@ class FeedView(generics.ListAPIView):
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    def get_queryset(self):
+    def get_queryset(self, request):
         """
         Return posts only from users the current user is following,
         ordered by creation date (most recent first).
         """
         user = self.request.user
         # Get all users the current user follows
-        following_users = user.following.values_list("id", flat=True)
+        following_users = request.user.following.all()
         # Return posts created by those users
         return Post.objects.filter(author__in=following_users).order_by("-created_at")
