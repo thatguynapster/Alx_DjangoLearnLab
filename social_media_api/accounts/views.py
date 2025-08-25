@@ -4,9 +4,8 @@ from rest_framework.decorators import action
 from rest_framework.authtoken.models import Token
 from rest_framework.views import APIView
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
 from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
-from .models import User
+from .models import CustomUser
 
 User = get_user_model()
 
@@ -50,11 +49,11 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
 
 class FollowUserView(generics.GenericAPIView):
-    queryset = User.objects.all()
+    queryset = CustomUser.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
-        user_to_follow = get_object_or_404(User.objects.all(), id=user_id)
+        user_to_follow = get_object_or_404(CustomUser.objects.all(), id=user_id)
         if user_to_follow == request.user:
             return Response(
                 {"error": "You cannot follow yourself."},
@@ -69,11 +68,11 @@ class FollowUserView(generics.GenericAPIView):
 
 
 class UnfollowUserView(generics.GenericAPIView):
-    queryset = User.objects.all()
+    queryset = CustomUser.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
-        user_to_unfollow = get_object_or_404(User.objects.all(), id=user_id)
+        user_to_unfollow = get_object_or_404(CustomUser.objects.all(), id=user_id)
         if user_to_unfollow == request.user:
             return Response(
                 {"error": "You cannot unfollow yourself."},
