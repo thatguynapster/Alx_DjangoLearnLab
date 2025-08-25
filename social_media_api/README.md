@@ -265,3 +265,97 @@ Additional fields:
 -   **Description:** Delete the comment (only if the user is the author).
 
 ---
+
+## Model Changes
+
+### `User` Model (accounts/models.py)
+
+-   Added a `following` field:
+    ```python
+    following = models.ManyToManyField("self", symmetrical=False, related_name="followers", blank=True)
+    ```
+
+This allows users to follow other users without requiring reciprocity (one-way relationship).
+
+## API Endpoints
+
+### User Follow Management (accounts app)
+
+| Endpoint                            | Method | Description     |
+| ----------------------------------- | ------ | --------------- |
+| `/accounts/follow/<int:user_id>/`   | POST   | Follow a user   |
+| `/accounts/unfollow/<int:user_id>/` | POST   | Unfollow a user |
+
+#### Example Request (Follow a User)
+
+```http
+POST /accounts/follow/2/
+Authorization: Token <your_token>
+```
+
+#### Example Response
+
+```json
+{ "detail": "You are now following johndoe" }
+```
+
+---
+
+### Feed Endpoint (posts app)
+
+| Endpoint       | Method | Description                        |
+| -------------- | ------ | ---------------------------------- |
+| `/posts/feed/` | GET    | Retrieve posts from followed users |
+
+#### Example Request
+
+```http
+GET /posts/feed/
+Authorization: Token <your_token>
+```
+
+#### Example Response
+
+```json
+[
+	{
+		"id": 1,
+		"author": "johndoe",
+		"content": "My first post!",
+		"created_at": "2025-08-24T15:45:00Z"
+	},
+	{
+		"id": 2,
+		"author": "janedoe",
+		"content": "Another great day!",
+		"created_at": "2025-08-24T16:10:00Z"
+	}
+]
+```
+
+---
+
+## Migration Steps
+
+After updating the `User` model, run:
+
+```bash
+python manage.py makemigrations accounts
+python manage.py migrate
+```
+
+---
+
+## Summary of Changes
+
+1. **User Model Updated**: Added `following` ManyToMany field.
+2. **New Views**:
+    - `FollowUserView`
+    - `UnfollowUserView`
+    - `FeedView`
+3. **URLs Added**:
+    - `/accounts/follow/<user_id>/`
+    - `/accounts/unfollow/<user_id>/`
+    - `/posts/feed/`
+
+---

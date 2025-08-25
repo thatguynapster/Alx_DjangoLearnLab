@@ -1,4 +1,4 @@
-from rest_framework import viewsets, permissions, filters
+from rest_framework import viewsets, generics, permissions, filters
 from rest_framework.exceptions import PermissionDenied
 from .models import Post, Comment
 from .serializers import PostSerializer, CommentSerializer
@@ -57,3 +57,21 @@ class CommentViewSet(viewsets.ModelViewSet):
         if instance.author != self.request.user:
             raise permissions.PermissionDenied("You cannot delete comments.")
         instance.delete()
+
+
+class FeedView(generics.ListAPIView):
+    serializer_class = PostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        """
+        Return posts only from users the current user is following,
+        ordered by creation date (most recent first).
+        """
+        user = self.request.user
+        # Get all users the current user follows
+        following_users = user.following.values_list("id", flat=True)
+        # Return posts created by those users
+        return Post.objects.filter(author__id__in=following_users).order_by(
+            "-created_at"
+        )
