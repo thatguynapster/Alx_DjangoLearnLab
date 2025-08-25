@@ -5,8 +5,8 @@ from .views import PostViewSet, CommentViewSet, FeedView
 router = DefaultRouter()
 router.register(r"posts", PostViewSet, basename="post")
 router.register(r"comments", CommentViewSet, basename="comment")
-router.register(r"feed", FeedView, basename="feed")
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("feed/", FeedView.as_view(), name="feed"),
 ]
