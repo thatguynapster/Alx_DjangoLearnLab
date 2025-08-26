@@ -335,16 +335,27 @@ Authorization: Token <your_token>
 
 ---
 
-## Migration Steps
+## Likes and Notifications
 
-After updating the `User` model, run:
+### Overview
 
-```bash
-python manage.py makemigrations accounts
-python manage.py migrate
-```
+Added the ability for users to like posts and receive notifications when their posts are liked. It extends the social features of the platform by increasing interactivity and user engagement.
 
----
+## Features Implemented
+
+1.  **Likes on Posts:**
+    -   Users can like/unlike posts.
+    -   A post can display the total number of likes it has received.
+2.  **Notifications System:**
+    -   When a post is liked, the owner of the post receives a
+        notification.
+    -   Notifications are linked to users and can be marked as
+        read/unread.
+3.  **Endpoints Added:**
+    -   `POST /api/posts/<int:post_id>/like/` → Like a post.
+    -   `POST /api/posts/<int:post_id>/unlike/` → Unlike a post.
+    -   `GET /api/notifications/` → Retrieve all notifications for the
+        logged-in user.
 
 ## Summary of Changes
 
